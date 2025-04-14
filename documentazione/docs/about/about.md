@@ -1,2 +1,0 @@
-# CIAO
-ciao sono fernu

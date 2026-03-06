@@ -1,50 +1,54 @@
-/* Reset e atmosfera generale */
 body { 
     margin: 0; 
-    padding: 0;
     overflow: hidden; 
-    background: #0a0a0a; 
-    color: #e0e0e0; 
-    font-family: 'Courier New', Courier, monospace; 
+    background: #111; 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Queste tre righe impediscono lo scroll accidentale e il "pull-to-refresh" sui cellulari */
+    touch-action: none; 
+    overscroll-behavior: none; 
+    -webkit-user-select: none;
+    user-select: none;
 }
 
-/* Layer informativo in alto a sinistra */
-#ui-layer { 
-    position: absolute; 
-    top: 20px; 
-    left: 20px; 
-    pointer-events: none; 
-    z-index: 10; 
-    max-width: 400px; 
+#ui-layer {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    pointer-events: none;
+    max-width: 80%; /* Evita che il testo vada oltre lo schermo */
 }
 
-h1 { 
-    font-size: 1.2rem; 
-    letter-spacing: 2px; 
-    text-transform: uppercase; 
-    color: #00ff41; 
-    margin-bottom: 5px;
+h1 { color: #cc0000; font-weight: 200; letter-spacing: 2px; font-size: 1.1rem; opacity: 0.9; margin-bottom: 5px; }
+.instruction { color: #666; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; }
+
+.content-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Modifica cruciale per mobile: larghezza fluida */
+    width: 85%; 
+    max-width: 320px; 
+    box-sizing: border-box;
+    
+    background: rgba(15, 15, 15, 0.95);
+    color: #eee;
+    padding: 25px;
+    display: none;
+    border-left: 3px solid #cc0000;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
 }
 
-.instruction { 
-    color: #666; 
-    font-style: italic; 
-    font-size: 0.8rem;
+#concept-title { color: #cc0000; margin-top: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+#concept-text { line-height: 1.5; font-size: 0.9rem; font-weight: 300; }
+
+button {
+    background: transparent; border: 1px solid #cc0000; color: #cc0000;
+    padding: 10px 15px; cursor: pointer; margin-top: 15px;
+    font-size: 0.8rem; text-transform: uppercase; transition: all 0.3s;
+    width: 100%; /* Pulsante a larghezza piena per essere cliccato facilmente col pollice */
 }
 
-/* Il box dei contenuti della tesi */
-.content-box { 
-    position: absolute; 
-    bottom: 40px; 
-    right: 40px; 
-    width: 320px; 
-    background: rgba(10, 10, 10, 0.85); 
-    border-left: 3px solid #00ff41; 
-    padding: 25px; 
-    display: none; 
-    z-index: 100; 
-    font-size: 0.95rem; 
-    line-height: 1.6;
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
-    transition: all 0.5s ease;
-}
+button:hover, button:active { background: #cc0000; color: #fff; }

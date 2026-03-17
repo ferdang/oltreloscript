@@ -1,54 +1,337 @@
-body { 
-    margin: 0; 
-    overflow: hidden; 
-    background: #111; 
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    /* Queste tre righe impediscono lo scroll accidentale e il "pull-to-refresh" sui cellulari */
-    touch-action: none; 
-    overscroll-behavior: none; 
-    -webkit-user-select: none;
-    user-select: none;
+/* ============================================================
+   SIAMO HUMUS — Fango Fertile
+   style.css
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#ui-layer {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
-    pointer-events: none;
-    max-width: 80%; /* Evita che il testo vada oltre lo schermo */
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #e8e0d0;
+  cursor: default;
 }
 
-h1 { color: #cc0000; font-weight: 200; letter-spacing: 2px; font-size: 1.1rem; opacity: 0.9; margin-bottom: 5px; }
-.instruction { color: #666; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; }
-
-.content-box {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Modifica cruciale per mobile: larghezza fluida */
-    width: 85%; 
-    max-width: 320px; 
-    box-sizing: border-box;
-    
-    background: rgba(15, 15, 15, 0.95);
-    color: #eee;
-    padding: 25px;
-    display: none;
-    border-left: 3px solid #cc0000;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+/* ---------- Canvas p5.js ---------- */
+canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 0 !important;
+  display: block;
+  cursor: crosshair;
 }
 
-#concept-title { color: #cc0000; margin-top: 0; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-#concept-text { line-height: 1.5; font-size: 0.9rem; font-weight: 300; }
-
-button {
-    background: transparent; border: 1px solid #cc0000; color: #cc0000;
-    padding: 10px 15px; cursor: pointer; margin-top: 15px;
-    font-size: 0.8rem; text-transform: uppercase; transition: all 0.3s;
-    width: 100%; /* Pulsante a larghezza piena per essere cliccato facilmente col pollice */
+/* ---------- UI Layer ---------- */
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
-button:hover, button:active { background: #cc0000; color: #fff; }
+/* ---------- Navigation ---------- */
+#nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 36px;
+  pointer-events: all;
+  z-index: 10;
+  opacity: 0; /* mostrata via JS dopo la transizione */
+}
+
+#logo {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(200, 185, 155, 0.4);
+  text-transform: uppercase;
+  user-select: none;
+}
+
+#nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(200, 185, 155, 0.28);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.4s;
+  pointer-events: all;
+  border: none;
+  background: none;
+  font-family: 'Georgia', serif;
+  padding: 4px 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: rgba(220, 200, 160, 0.9);
+}
+
+/* ---------- Hint ---------- */
+#hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: rgba(180, 165, 135, 0.28);
+  text-transform: uppercase;
+  pointer-events: none;
+  text-align: center;
+  transition: opacity 1s;
+  white-space: nowrap;
+  opacity: 1;
+  display: none; /* mostrato via JS dopo la transizione */
+}
+
+#hint.hidden {
+  opacity: 0;
+}
+
+/* ---------- Projects Grid ---------- */
+#projects-grid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: min(620px, 90vw);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  margin-top: 24px;
+}
+
+#projects-grid.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.proj-card {
+  border: 0.5px solid rgba(200, 185, 155, 0.11);
+  padding: 26px 24px;
+  cursor: pointer;
+  transition: border-color 0.35s, background 0.35s;
+  background: rgba(200, 185, 155, 0.02);
+}
+
+.proj-card:hover {
+  border-color: rgba(200, 185, 155, 0.36);
+  background: rgba(200, 185, 155, 0.055);
+}
+
+.pc-num {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(180, 165, 135, 0.26);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-family: 'Georgia', serif;
+}
+
+.proj-card h3 {
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(230, 215, 185, 0.82);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.proj-card p {
+  font-size: 12px;
+  line-height: 1.68;
+  color: rgba(180, 165, 135, 0.46);
+}
+
+/* ---------- Theory View ---------- */
+#theory-view {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(600px, 88vw);
+  max-height: 74vh;
+  overflow-y: auto;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  padding-right: 8px;
+  margin-top: 24px;
+}
+
+#theory-view.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#theory-view::-webkit-scrollbar { width: 2px; }
+#theory-view::-webkit-scrollbar-track { background: transparent; }
+#theory-view::-webkit-scrollbar-thumb {
+  background: rgba(200, 185, 155, 0.18);
+  border-radius: 2px;
+}
+
+.theory-entry {
+  margin-bottom: 38px;
+  padding-bottom: 38px;
+  border-bottom: 0.5px solid rgba(200, 185, 155, 0.07);
+}
+
+.theory-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.te-word {
+  font-size: 22px;
+  color: rgba(230, 215, 185, 0.86);
+  margin-bottom: 10px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.te-def {
+  font-size: 13px;
+  line-height: 1.82;
+  color: rgba(180, 165, 135, 0.6);
+}
+
+/* ---------- Side Panel ---------- */
+#panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(430px, 92vw);
+  height: 100%;
+  background: rgba(0, 0, 0, 0.96);
+  border-left: 0.5px solid rgba(200, 185, 155, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  pointer-events: all;
+  z-index: 20;
+  padding: 68px 46px 68px;
+}
+
+#panel.open {
+  transform: translateX(0);
+}
+
+#panel::-webkit-scrollbar { width: 2px; }
+#panel::-webkit-scrollbar-thumb { background: rgba(200, 185, 155, 0.18); }
+
+#panel-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: rgba(200, 185, 155, 0.3);
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Georgia', serif;
+  transition: color 0.3s;
+  line-height: 1;
+}
+
+#panel-close:hover {
+  color: rgba(200, 185, 155, 0.88);
+}
+
+#panel h2 {
+  font-size: 25px;
+  font-weight: 400;
+  color: rgba(230, 215, 185, 0.94);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+#panel .tag {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: rgba(180, 165, 135, 0.35);
+  margin-bottom: 26px;
+  display: block;
+}
+
+#panel .body {
+  font-size: 14px;
+  line-height: 1.84;
+  color: rgba(200, 185, 160, 0.7);
+}
+
+#panel .body p {
+  margin-bottom: 16px;
+}
+
+#panel .body p:last-child {
+  margin-bottom: 0;
+}
+
+#panel .divider {
+  width: 36px;
+  height: 0.5px;
+  background: rgba(200, 185, 155, 0.16);
+  margin: 30px 0;
+}
+
+#panel .links {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+#panel .plink {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  color: rgba(180, 165, 135, 0.38);
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0;
+  font-family: 'Georgia', serif;
+}
+
+#panel .plink::before {
+  content: '→  ';
+}
+
+#panel .plink:hover {
+  color: rgba(220, 200, 160, 0.88);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  #projects-grid { grid-template-columns: 1fr; }
+  #nav { padding: 16px 20px; }
+  #nav-links { gap: 18px; }
+}

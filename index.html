@@ -1,23 +1,196 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>SEI HUMUS</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>siamo humus — fango fertile</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="p5/p5.min.js"></script>
 </head>
 <body>
-    <div id="ui-layer">
-        <h1>Il Gioco della Matassa</h1>
-        <p class="instruction">Segui il filo. Il tempo non è una linea retta.</p>
+
+  <div id="ui">
+
+    <nav id="nav">
+      <div id="logo">siamo humus</div>
+      <div id="nav-links">
+        <button class="nav-link active" data-section="home">fango</button>
+        <button class="nav-link" data-section="theory">teorema</button>
+      </div>
+    </nav>
+
+    <div id="hint">muovi il cursore · le parole emergeranno dal fango</div>
+
+    <div id="theory-view">
+
+      <div class="theory-entry">
+        <div class="te-word">fango</div>
+        <div class="te-def">La materia prima, il disordine fecondo da cui nasce l'imprevisto. Non è mancanza di forma — è eccesso di possibilità. Prima che la parola cristallizzi, prima che il codice si esegua, c'è il fango: lo stato in cui tutto può ancora diventare.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">siamo humus</div>
+        <div class="te-def">Terra che pensa, codice che sente. Figure di filo, rete, responso-abilità. Non una metafora — una condizione ontologica. Siamo ciò che si decompone e rifertilizza, ciò che è sempre già in relazione, ciò che non finisce mai.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">compost</div>
+        <div class="te-def">Ciò che siamo. Materia fertile fatta di bit, carne, ricordi, decomposizione. Il farsi comune del mondo (worlding). Non siamo individui ma processi — sovrapposizioni di storie che si decompongono e rifertilizzano continuamente.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">hacker</div>
+        <div class="te-def">Chi non subisce la macchina, ma gioca con essa. Chi è capace di trasformare il limite in possibilità e lo strumento di controllo in spazio di libertà. L'hacker non distrugge il sistema — lo reinterpreta, lo devia, lo rende altro.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">skholè</div>
+        <div class="te-def">L'essere padroni del proprio tempo, ormai liberato dal profitto per essere restituito alla contemplazione. Non ozio — presenza. La condizione necessaria perché la risonanza abbia luogo tra sé e il mondo.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">matassa</div>
+        <div class="te-def">Un passare e ricevere fili, sciogliendoli e intrecciandoli. Una pratica per pensare e fare allo stesso tempo, in cui la configurazione cambia continuamente e nessuno gioca da solo. Non si vince.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">gioco della matassa</div>
+        <div class="te-def">Un passare e ricevere fili, sciogliendoli e intrecciandoli. Una pratica per pensare e per fare allo stesso tempo, in cui la configurazione cambia continuamente e nessuno gioca da solo. Non si vince. Non c'è vittoria — c'è solo il gioco.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">filo</div>
+        <div class="te-def">Un'identità, un modo di essere, un codice. Un uno che non è mai uno. Il filo non è mai soltanto se stesso — è sempre in relazione, sempre in tensione tra il nodo che lo trattiene e lo spazio aperto che lo aspetta.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">nodo</div>
+        <div class="te-def">La parte che è nel tutto. Un punto di incontro dove vari fili convergono. Il nodo non è un ostacolo — è il luogo dove le relazioni diventano visibili, dove l'intreccio si fa denso e significante.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">rete</div>
+        <div class="te-def">Il tutto che è nella parte. Fatta di incontri, storie, fili che arrivano da altrove e vanno verso l'Altro, che si intrecciano, si aggrovigliano, si scambiano. La rete non ha centro — ha solo relazioni.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">intreccio</div>
+        <div class="te-def">Una trama invisibile che tessiamo ogni giorno, fatta di relazioni, scambi e intra-azioni. L'intreccio non è il risultato di un progetto — emerge dal gesto ripetuto, dall'incontro, dalla prossimità.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">cyborg</div>
+        <div class="te-def">Un modello operativo poroso, che sta nel mezzo tra umano e animale, organico e meccanico, uomo e donna. Una via d'uscita dai dualismi che tanto hanno formato la mente occidentale. Una figura del possibile.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">script</div>
+        <div class="te-def">L'invisibile codice che detta i nostri comportamenti e ci trasforma in macchine. Non è scritto su nessun supporto visibile — vive nella ripetizione, nell'abitudine, nella velocità che non lascia spazio alla riflessione.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">cambiodirotta</div>
+        <div class="te-def">Lo script che si rompe, implode, e cessa di esistere. Non è un momento di fuga, ma una deviazione consapevole verso nuovi territori. Il luogo dove l'automatismo incontra la scelta, e la scelta vince.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">orologio</div>
+        <div class="te-def">La prigione di Chrònos, che segna la scansione non di bisogni ma di necessità funzionali. Hackerare l'orologio significa restituire al tempo la sua dimensione vissuta, sottraendola alla misurazione produttiva.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">radice</div>
+        <div class="te-def">Ciò che ci tiene fermi, ancorati alla nostra vera natura: quella di humus. La radice non è immobilità — è la condizione che rende possibile il movimento, il punto fermo da cui si può oscillare senza perdersi.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">gioco</div>
+        <div class="te-def">Lo strumento prediletto dell'hacker, capace di restituire il piacere della conoscenza e di scoprire nuovi mondi. Il gioco non è l'opposto del lavoro — è l'opposto della costrizione.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">insieme</div>
+        <div class="te-def">L'unica modalità di sopravvivenza nello Chthulucene. Nulla si fa da sé, tutto nasce tra le specie. Insieme non è somma di individui — è la condizione originaria da cui gli individui emergono.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">significato</div>
+        <div class="te-def">Ciò che emerge quando smettiamo di produrre e iniziamo a sentire. La risonanza tra il nostro humus interno e il mondo. Il significato non si trova — si genera nell'incontro tra un corpo e ciò che lo attraversa.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">umani</div>
+        <div class="te-def">Non siamo umani solo perché nati, dobbiamo diventarlo. Come dice Kokoschka, è una condizione che va "diventata" attraverso lo svelamento e la scelta. L'umano non è un dato — è un compito.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">rincorrere</div>
+        <div class="te-def">Il movimento costante della società della prestazione. È l'illusione di una crescita che non permette soste, in vista di un'ottimizzazione non umana. Rincorrere non è andare verso qualcosa — è fuggire da se stessi.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">velocità</div>
+        <div class="te-def">Non è rapidità, ma saturazione: un rumore bianco che non permette alla risonanza di avere luogo. La velocità contemporanea non ci porta da nessuna parte più in fretta — ci impedisce di arrivare.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">tempo</div>
+        <div class="te-def">La risorsa che abbiamo smesso di abitare per iniziare a consumare. Hackerare il tempo significa riappropriarsene, così da riscoprire se stessi. Il tempo non si gestisce — si vive.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">stare a contatto con il problema</div>
+        <div class="te-def">L'invito di Haraway a non scappare, ad abitare le contraddizioni del presente restandone ingarbugliati, senza cercare facili soluzioni asettiche. Il problema non va risolto — va abitato.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">moltitudine</div>
+        <div class="te-def">Il superamento dell'Inferno dell'Uguale, diversità che si scambiano senza annullarsi. La moltitudine non è folla — è la forma politica della differenza che non chiede di sparire per stare insieme.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">altro</div>
+        <div class="te-def">Lo specchio necessario, un agente di senso multiplo con il quale coevolviamo. L'altro non è ciò che non siamo — è ciò attraverso cui diventiamo. Senza l'altro, nessuna identità è possibile.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">creative coding</div>
+        <div class="te-def">Pratica che permette di praticare la skholé, di usare l'algoritmo non per far funzionare le cose, ma per farle risonare. Il codice come strumento contemplativo, come gesto artistico, come modo di abitare il tempo invece di consumarlo.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">consapevolezza</div>
+        <div class="te-def">Il risveglio dall'incubo dello script, è accorgersi di poter fare del tempo il nostro tempo. La consapevolezza non è uno stato da raggiungere — è un gesto da ripetere, ogni volta che la velocità ci travolge.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">corpi</div>
+        <div class="te-def">Elementi da biohackerare, entità che problematizzano la nozione di individualità e di organismo. Il corpo non è il contenitore dell'io — è il luogo dove l'io viene continuamente negoziato con il mondo.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">mente</div>
+        <div class="te-def">Processore di informazioni saturato dalla velocità, può scegliere il gioco al posto della funzione, così da liberarsi. La mente non è separata dal corpo — è il modo in cui il corpo si racconta a se stesso.</div>
+      </div>
+
+      <div class="theory-entry">
+        <div class="te-word">anima</div>
+        <div class="te-def">Espulsa dalla società per favorire la pura operatività, può riscattarsi solo dando senso al gioco della matassa. L'anima non è qualcosa che si ha — è qualcosa che si pratica.</div>
+      </div>
+
+    </div><!-- /theory-view -->
+
+    <div id="panel">
+      <button id="panel-close">✕</button>
+      <h2 id="panel-title"></h2>
+      <span class="tag" id="panel-tag"></span>
+      <div class="body" id="panel-body"></div>
+      <div class="divider"></div>
+      <div class="links" id="panel-links"></div>
     </div>
 
-    <div id="content-display" class="content-box">
-        <h2 id="concept-title"></h2>
-        <p id="concept-text"></p>
-        <button onclick="closeBox()">Chiudi</button>
-    </div>
+  </div><!-- /ui -->
 
-    <script src="script.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

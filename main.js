@@ -532,11 +532,11 @@ function drawIntroText(a) {
 
   textSize(min(width * 0.075, 72));
   fill(230, 215, 185, a * 0.9);
-  text('hackerare il tempo', cx, cy - 40);
+  text('siamo humus', cx, cy - 40);
 
   textSize(12);
   fill(180, 165, 135, a * 0.5);
-  text('tra umani e cyborg', cx, cy + 10);
+  text('fango e codice', cx, cy + 10);
 
   textSize(11);
   fill(200, 185, 155, a * 0.45);
